@@ -19,37 +19,38 @@
 </template>
 
 <script>
+import { computed, onMounted, ref } from "vue";
+
 export default {
-    data() {
-        return {
-        koreanDramas: [
+    setup() {
+        let newKoreanDramaRef = ref("");
+        let newKoreanDrama = ref("");
+        let koreanDramas = ref([
             { title: "Gu Family Book"}, 
             { title: "Hospital Playlist"}, 
             { title: "Melting Me Softly"}
-            ],
+        ]);
 
-        newKoreanDrama: ""
-        }
-    },
-    computed: {
-        koreanDramasCount() {
-        return this.koreanDramas.length ;
-        }
-    },
-    methods: {
-        addKoreanDrama() {
-        if(this.newKoreanDrama != "") {
-            this.koreanDramas.push({ title: this.newKoreanDrama}); 
-            this.newKoreanDrama = "";
-        }
-        },
+        onMounted(() => {
+            newKoreanDramaRef.value.focus();
+        });
 
-        removeKoreanDrama(index) {
-        this.koreanDramas = this.koreanDramas.filter((drama, i) => i != index);
+        const koreanDramasCount = computed({
+            get: () => koreanDramas.value.length
+        });
+
+        function removeKoreanDrama(index) {
+            koreanDramas.value = koreanDramas.value.filter((drama, i) => i != index);
         }
-    },
-    mounted() {
-        this.$refs.newKoreanDramaRef.focus();
+
+        function addKoreanDrama() {
+            if(newKoreanDrama.value != "") {
+                koreanDramas.value.push({ title: newKoreanDrama.value}); 
+                newKoreanDrama.value = "";
+            }
+        }
+
+        return {koreanDramas, newKoreanDrama, removeKoreanDrama, addKoreanDrama, newKoreanDramaRef, koreanDramasCount};
     }
 }
 </script>
