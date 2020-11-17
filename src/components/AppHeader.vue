@@ -21,14 +21,8 @@ export default {
         {title: "Slider", to: "/slider"},
         {title: "Calculator", to: "/calculator"},
         {title: "Modal", to: "/reuseable-modal"},
+        {title: "Chat", to: "/chat"},
       ]
-    }
-  },
-  props: {
-    isLoggedIn: {
-      typed: Boolean,
-      required: true
-      // default: true
     }
   },
   methods: {
@@ -40,6 +34,11 @@ export default {
       // }).catch((e) => {
       //   console.log(e);
       // });
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
     }
   }
 }

@@ -6,6 +6,8 @@ import Markdown from './pages/Markdown';
 import Slider from './pages/Slider';
 import Calculator from './pages/Calculator';
 import ReuseableModal from './pages/ReuseableModal';
+import Chat from './pages/Chat';
+import store from './store/index';
 
 const routes = [
     {path: '/', component: Home},
@@ -15,10 +17,23 @@ const routes = [
     {path: '/slider', component: Slider},
     {path: '/calculator', component: Calculator},
     {path: '/reuseable-modal', component: ReuseableModal},
+    {path: '/chat', component: Chat, meta: { middleware: "auth"}},
 ]
 const router = createRouter({
     history: createWebHistory(),
     routes
 });
 
-export default router
+router.beforeEach((to, _, next) => {
+    if(to.meta.middleware) {
+        const middleware = require(`./middleware/${to.meta.middleware}`);
+        console.log(to.meta);
+        if(middleware) {
+            middleware.default(next, store);
+        }
+    } else {
+        next();
+    }
+});
+
+export default router;
