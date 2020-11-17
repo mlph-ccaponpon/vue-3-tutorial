@@ -1,10 +1,10 @@
 <template>
-  <AppHeader @openLoginModal="isLoginOpen = true" />
+  <AppHeader />
   <div class="w-full flex">
     <router-view></router-view>
   </div>
   <teleport to="body">
-    <LoginModal v-if="isLoginOpen" @closeLoginModal="isLoginOpen = false"/>
+    <LoginModal />
   </teleport>
 </template>
 
@@ -17,11 +17,6 @@ export default {
   components: {
     AppHeader,
     LoginModal
-  },
-  data() {
-      return {
-          isLoginOpen: false
-      }
   },
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {

@@ -3,7 +3,7 @@
       <router-link class="mx-6 text-2xl" v-for="item in list" :key="item.to" :to="item.to">
         {{ item.title }}
       </router-link>
-      <button v-if="!isLoggedIn" class="mx-2 text-2xl" @click="$emit('open-login-modal')">Login</button>
+      <button v-if="!isLoggedIn" class="mx-2 text-2xl" @click="openLogin">Login</button>
       <button v-else class="mx-2 text-2xl" @click="logout">Logout</button>
   </nav>
 </template>
@@ -34,6 +34,9 @@ export default {
       // }).catch((e) => {
       //   console.log(e);
       // });
+    },
+    openLogin() {
+        this.$store.commit("setLoginModal", true);
     }
   },
   computed: {

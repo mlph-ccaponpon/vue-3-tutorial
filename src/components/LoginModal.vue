@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="isLoginOpen">
         <section @click="close"
             class="z-20 h-screen w-screen bg-gray-500 fixed top-0 opacity-50">
         </section>
@@ -69,11 +69,16 @@ export default {
                 });
         },
         close() {
-            this.$emit('close-login-modal');
+           this.$store.commit("setLoginModal", false);
+        }
+    },
+    computed: {
+        isLoginOpen() {
+            return this.$store.state.isLoginOpen;
         }
     },
     mounted() {
-        this.$refs.emailRef.focus();
+        // this.$refs.emailRef.focus();
     }
 }
 </script>
