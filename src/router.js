@@ -7,6 +7,7 @@ import Slider from './pages/Slider';
 import Calculator from './pages/Calculator';
 import ReuseableModal from './pages/ReuseableModal';
 import Chat from './pages/Chat';
+import UserCrud from './pages/UserCrud';
 import store from './store/index';
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
     {path: '/calculator', component: Calculator, meta: { middleware: "auth"}},
     {path: '/reuseable-modal', component: ReuseableModal},
     {path: '/chat', component: Chat, meta: { middleware: "auth"}},
+    {path: '/user-crud', component: UserCrud},
 ]
 const router = createRouter({
     history: createWebHistory(),
