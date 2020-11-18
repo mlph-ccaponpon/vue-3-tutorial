@@ -7,7 +7,7 @@
             <div class="flex h-full">
                 <div class="z-30 m-auto bg-white p-2 rounded shadow w-1/3">
                     <div class="p-2 border">
-                        <h1 class="text-3xl">Login</h1>
+                        <h1 class="text-3xl text-center">Login</h1>
                         
                         <GoogleLogin @close-from-google="close"/>
 
