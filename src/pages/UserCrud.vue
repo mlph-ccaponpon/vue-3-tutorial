@@ -2,23 +2,29 @@
   <section class="flex w-full">
       <div class="m-auto">
           <div class="mt-10">
+              <Create @new-user-added="addUser"/>
               <table>
                   <thead>
                       <tr>
                         <th class="px-4 py-2 border">ID</th>
                         <th class="px-4 py-2 border">Avatar</th>
-                        <th class="px-4 py-2 border">First Name</th>
-                        <th class="px-4 py-2 border">Last Name</th>
+                        <th class="px-4 py-2 border">Name</th>
                         <th class="px-4 py-2 border">Email</th>
+                        <th class="px-4 py-2 border">Action</th>
                       </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="user in state.users.data" :key="user.id">
-                        <td class="border px-4 py-2">{{ user.id }}</td>
+                    <tr v-for="user in state.users" :key="user._id">
+                        <td class="border px-4 py-2">{{ user._id }}</td>
                         <td class="border px-4 py-2"><img :src="user.avatar" :alt="user.first_name" width="80" class="rounded-full" /></td>
-                        <td class="border px-4 py-2">{{ user.first_name }}</td>
-                        <td class="border px-4 py-2">{{ user.last_name }}</td>
+                        <td class="border px-4 py-2">{{ user.name }}</td>
                         <td class="border px-4 py-2">{{ user.email }}</td>
+                        <td class="border px-4 py-2">
+                            <button class="px-2 py-1 bg-red-800 rounded text-white"
+                                    @click="destroy(user._id)">
+                                Delete
+                            </button>
+                        </td>
                     </tr>
                   </tbody>
               </table>
@@ -43,12 +49,13 @@
 <script>
 import { onMounted, reactive } from 'vue';
 import axios from '../plugins/axios';
+import Create from '../components/user-crud/Create.vue';
 
 export default {
+  components: { Create },
     setup() {
         const state = reactive({
-            users: [],
-            pageNum: 0
+            users: []
         });
 
         onMounted(async () => {
@@ -65,7 +72,17 @@ export default {
            const { data } = await axios.get("/users?page=1");
            state.users = data;
         }
-        return { state, next, prev };
+
+        async function destroy(id) {
+            await axios.delete(`users/${id}`);
+            state.users = state.users.filter((user) => user._id != id);
+        }
+
+        function addUser(data) {
+            state.users.push(data);
+        }
+
+        return { state, next, prev, destroy, addUser };
     }
 }
 </script>
