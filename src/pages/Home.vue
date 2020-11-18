@@ -1,15 +1,19 @@
 <template>
     <div class="m-auto my-4">
-    <h1 class="text-center text-3xl"> Welcome to Vue 3 Full Course</h1>
+    <h1 class="text-center text-3xl">Welcome!</h1>
     </div>
 </template>
 
 <script>
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
-    data() {
-        return {
-            store: this.$store.state
-        }
+    setup() {
+        onMounted(() => {
+            const store = useStore();
+            store.commit("setLoginModal", true);
+        });
     }
 }
 </script>

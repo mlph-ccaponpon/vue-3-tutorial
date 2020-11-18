@@ -30,12 +30,6 @@ export default {
   methods: {
     logout() {
       firebase.auth().signOut();
-      // .then((res) => {
-      //   console.log(res);
-      //   console.log("LOGOUT");
-      // }).catch((e) => {
-      //   console.log(e);
-      // });
     },
     openLogin() {
         this.$store.commit("setLoginModal", true);

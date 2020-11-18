@@ -31,7 +31,6 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
     if(to.meta.middleware) {
         const middleware = require(`./middleware/${to.meta.middleware}`);
-        console.log(to.meta);
         if(middleware) {
             middleware.default(next, store);
         }
