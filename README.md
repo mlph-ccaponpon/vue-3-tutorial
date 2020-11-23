@@ -23,7 +23,7 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### User Credential for Firebase Email Login feature
+### User Credentials for Firebase Email Login feature 
 Email: chin@mailinator.com 
 Password: 123password
 
